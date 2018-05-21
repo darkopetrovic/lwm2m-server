@@ -9,10 +9,11 @@ function loadModels() {
  * Creates a new connection to the Mongo DB.
  *
  */
-function init(host, db, callback) {
+function init(user, password, host, port, db, callback) {
     /*jshint camelcase:false */
 
-    defaultDb = mongoose.createConnection(host, db);
+    const uri = `mongodb://${user}:${password}@${host}:${port}/${db}`;
+    defaultDb = mongoose.createConnection(uri);
     defaultDb.on('error', function mongodbErrorHandler(error) {
         throw new Error(error);
     });

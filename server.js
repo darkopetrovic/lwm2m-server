@@ -20,7 +20,8 @@ var port = process.env.PORT || 5000;
 var router = express.Router();
 
 // MongoDB initialization and models loading
-dbService.init(config.deviceRegistry.host, config.deviceRegistry.db, function(){
+dbService.init(config.deviceRegistry.user, config.deviceRegistry.password,
+    config.deviceRegistry.host, config.deviceRegistry.port, config.deviceRegistry.db, function(){
   process.emit('dbison');
 });
 
@@ -49,7 +50,6 @@ router.use('/devicemodels', require('./controllers/device_models'));
 router.use('/actions', require('./controllers/actions'));
 router.use('/queuedrequests', require('./controllers/queued_requests'));
 app.use('/api', router);
-
 
 server.listen(port);
 debug('LwM2M API Started on port %d', port);
